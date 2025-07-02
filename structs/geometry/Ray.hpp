@@ -20,11 +20,11 @@ struct Ray {
             t_min{t_min_},
             t_max{t_max} {}
 
-    [[nodiscard]] inline bool contains(const float t) const {
+    [[nodiscard]] bool contains(const float t) const {
         return t_min <= t && t <= t_max;
     }
 
-    [[nodiscard]] inline Vec3 getPoint(const float t) const {
+    [[nodiscard]] Vec3 getPoint(const float t) const {
         return origin + direction * t;
     }
 };

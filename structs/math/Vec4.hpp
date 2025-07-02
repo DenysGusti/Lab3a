@@ -17,79 +17,79 @@ struct Vec4 {
 
     explicit Vec4(const Vec3 &vec3, const float w = 1.f) : data{vec3.x(), vec3.y(), vec3.z(), w} {}
 
-    [[nodiscard]] inline Vec3 toVec3() const {
+    [[nodiscard]] Vec3 toVec3() const {
         return Vec3{x(), y(), z()};
     }
 
-    [[nodiscard]] inline float x() const {
+    [[nodiscard]] float x() const {
         return data[0];
     }
 
-    [[nodiscard]] inline float y() const {
+    [[nodiscard]] float y() const {
         return data[1];
     }
 
-    [[nodiscard]] inline float z() const {
+    [[nodiscard]] float z() const {
         return data[2];
     }
 
-    [[nodiscard]] inline float w() const {
+    [[nodiscard]] float w() const {
         return data[3];
     }
 
-    inline float &x() {
+    float &x() {
         return data[0];
     }
 
-    inline float &y() {
+    float &y() {
         return data[1];
     }
 
-    inline float &z() {
+    float &z() {
         return data[2];
     }
 
-    inline float &w() {
+    float &w() {
         return data[3];
     }
 
-    [[nodiscard]] inline float r() const {
+    [[nodiscard]] float r() const {
         return data[0];
     }
 
-    [[nodiscard]] inline float g() const {
+    [[nodiscard]] float g() const {
         return data[1];
     }
 
-    [[nodiscard]] inline float b() const {
+    [[nodiscard]] float b() const {
         return data[2];
     }
 
-    [[nodiscard]] inline float a() const {
+    [[nodiscard]] float a() const {
         return data[3];
     }
 
-    inline float &r() {
+    float &r() {
         return data[0];
     }
 
-    inline float &g() {
+    float &g() {
         return data[1];
     }
 
-    inline float &b() {
+    float &b() {
         return data[2];
     }
 
-    inline float &a() {
+    float &a() {
         return data[3];
     }
 
-    [[nodiscard]] inline Vec4 operator+(const Vec4 &other) const {
+    [[nodiscard]] Vec4 operator+(const Vec4 &other) const {
         return Vec4{x() + other.x(), y() + other.y(), z() + other.z(), w() + other.w()};
     }
 
-    inline Vec4 &operator+=(const Vec4 &other) {
+    Vec4 &operator+=(const Vec4 &other) {
         x() += other.x();
         y() += other.y();
         z() += other.z();
@@ -97,11 +97,11 @@ struct Vec4 {
         return *this;
     }
 
-    [[nodiscard]] inline Vec4 operator-(const Vec4 &other) const {
+    [[nodiscard]] Vec4 operator-(const Vec4 &other) const {
         return Vec4{x() - other.x(), y() - other.y(), z() - other.z(), w() - other.w()};
     }
 
-    inline Vec4 &operator-=(const Vec4 &other) {
+    Vec4 &operator-=(const Vec4 &other) {
         x() -= other.x();
         y() -= other.y();
         z() -= other.z();
@@ -109,11 +109,11 @@ struct Vec4 {
         return *this;
     }
 
-    [[nodiscard]] inline Vec4 operator*(const float scalar) const {
+    [[nodiscard]] Vec4 operator*(const float scalar) const {
         return Vec4{x() * scalar, y() * scalar, z() * scalar, w() * scalar};
     }
 
-    inline Vec4 &operator*=(const float scalar) {
+    Vec4 &operator*=(const float scalar) {
         x() *= scalar;
         y() *= scalar;
         z() *= scalar;
@@ -121,11 +121,11 @@ struct Vec4 {
         return *this;
     }
 
-    [[nodiscard]] inline Vec4 operator*(const Vec4 &other) const {
+    [[nodiscard]] Vec4 operator*(const Vec4 &other) const {
         return Vec4{x() * other.x(), y() * other.y(), z() * other.z(), w() * other.w()};
     }
 
-    inline Vec4 &operator*=(const Vec4 &other) {
+    Vec4 &operator*=(const Vec4 &other) {
         x() *= other.x();
         y() *= other.y();
         z() *= other.z();
@@ -133,12 +133,12 @@ struct Vec4 {
         return *this;
     }
 
-    [[nodiscard]] inline Vec4 operator/(const float scalar) const {
+    [[nodiscard]] Vec4 operator/(const float scalar) const {
         const float inv = 1.f / scalar;
         return Vec4{x() * inv, y() * inv, z() * inv, w() * inv};
     }
 
-    inline Vec4 &operator/=(const float scalar) {
+    Vec4 &operator/=(const float scalar) {
         const float inv = 1.f / scalar;
         x() *= inv;
         y() *= inv;
@@ -147,29 +147,29 @@ struct Vec4 {
         return *this;
     }
 
-    [[nodiscard]] inline Vec4 operator-() const {
+    [[nodiscard]] Vec4 operator-() const {
         return Vec4{-x(), -y(), -z(), -w()};
     }
 
-    [[nodiscard]] inline float dot(const Vec4 &other) const {
+    [[nodiscard]] float dot(const Vec4 &other) const {
         return x() * other.x() + y() * other.y() + z() * other.z() + w() * other.w();
     }
 
-    [[nodiscard]] inline float length() const {
+    [[nodiscard]] float length() const {
         return sqrt(dot(*this));
     }
 
-    [[nodiscard]] inline float lengthSquared() const {
+    [[nodiscard]] float lengthSquared() const {
         return dot(*this);
     }
 
-    [[nodiscard]] inline Vec4 normalized() const {
+    [[nodiscard]] Vec4 normalized() const {
         const float len = length();
         return len > 0 ? *this / len : Vec4{0, 0, 0, 0};
     }
 };
 
-[[nodiscard]] inline Vec4 operator*(const float scalar, const Vec4 &v) {
+[[nodiscard]] Vec4 operator*(const float scalar, const Vec4 &v) {
     return v * scalar;
 }
 
