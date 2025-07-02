@@ -25,13 +25,12 @@
 using namespace std;
 
 struct ASurface {
-    Vec3 position;
     unique_ptr<AMaterial> material;
     vector<unique_ptr<ITransform> > transform;
 
     virtual ~ASurface() = default;
 
-    explicit ASurface(const pugi::xml_node &node) : position{node.child("position")} {
+    explicit ASurface(const pugi::xml_node &node) {
         if (const auto material_solid_node = node.child("material_solid"))
             material = make_unique<MaterialSolid>(material_solid_node);
         else if (const auto material_textured_node = node.child("material_textured"))

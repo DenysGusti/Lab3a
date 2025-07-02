@@ -7,10 +7,12 @@ using namespace std;
 
 struct Sphere : ASurface {
     float radius{};
+    Vec3 position;
 
     explicit Sphere(const pugi::xml_node &node) :
             ASurface{node},
-            radius{node.attribute("radius").as_float()} {}
+            radius{node.attribute("radius").as_float()},
+            position{node.child("position")} {}
 
     [[nodiscard]] optional<HitInfo> hit(const Ray &ray) const override {
         const Vec3 oc = ray.origin - position;
