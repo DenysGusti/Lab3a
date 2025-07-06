@@ -1,5 +1,5 @@
-#ifndef LAB3A_MAT4_HPP
-#define LAB3A_MAT4_HPP
+#ifndef LAB3B_MAT4_HPP
+#define LAB3B_MAT4_HPP
 
 #include <array>
 #include <cmath>
@@ -17,19 +17,19 @@ struct Mat4 {
     static Mat4 identity() {
         Mat4 m{};
         m.data = {
-                1, 0, 0, 0,   // Column 0
-                0, 1, 0, 0,   // Column 1
-                0, 0, 1, 0,   // Column 2
-                0, 0, 0, 1    // Column 3
+                1, 0, 0, 0,   // row 0
+                0, 1, 0, 0,   // row 1
+                0, 0, 1, 0,   // row 2
+                0, 0, 0, 1    // row 3
         };
         return m;
     }
 
     static Mat4 translate(const Vec3 &t) {
         Mat4 m = identity();
-        m.data[12] = t.x();
-        m.data[13] = t.y();
-        m.data[14] = t.z();
+        m.data[3] = t.x();
+        m.data[7] = t.y();
+        m.data[11] = t.z();
         return m;
     }
 
@@ -43,52 +43,55 @@ struct Mat4 {
 
     static Mat4 rotateX(const float angleRad) {
         Mat4 m = identity();
-        float c = cos(angleRad), s = sin(angleRad);
+        const float c = cos(angleRad);
+        const float s = sin(angleRad);
         m.data[5] = c;
-        m.data[6] = s;
-        m.data[9] = -s;
+        m.data[6] = -s;
+        m.data[9] = s;
         m.data[10] = c;
         return m;
     }
 
     static Mat4 rotateY(const float angleRad) {
         Mat4 m = identity();
-        float c = cos(angleRad), s = sin(angleRad);
+        const float c = cos(angleRad);
+        const float s = sin(angleRad);
         m.data[0] = c;
-        m.data[2] = -s;
-        m.data[8] = s;
+        m.data[2] = s;
+        m.data[8] = -s;
         m.data[10] = c;
         return m;
     }
 
     static Mat4 rotateZ(const float angleRad) {
         Mat4 m = identity();
-        float c = cos(angleRad), s = sin(angleRad);
+        const float c = cos(angleRad);
+        const float s = sin(angleRad);
         m.data[0] = c;
-        m.data[1] = s;
-        m.data[4] = -s;
+        m.data[1] = -s;
+        m.data[4] = s;
         m.data[5] = c;
         return m;
     }
 
     static Mat4 lookAt(const Vec3 &eye, const Vec3 &center, const Vec3 &up) {
-        Vec3 f = (eye - center).normalized();
-        Vec3 r = up.cross(f).normalized();
-        Vec3 u = f.cross(r);
+        const Vec3 z = (eye - center).normalized();
+        const Vec3 x = up.cross(z).normalized();
+        const Vec3 y = z.cross(x);
 
         Mat4 m = identity();
-        m.data[0] = r.x();
-        m.data[4] = r.y();
-        m.data[8] = r.z();
-        m.data[1] = u.x();
-        m.data[5] = u.y();
-        m.data[9] = u.z();
-        m.data[2] = f.x();
-        m.data[6] = f.y();
-        m.data[10] = f.z();
-        m.data[12] = eye.x();
-        m.data[13] = eye.y();
-        m.data[14] = eye.z();
+        m.data[0] = x.x();
+        m.data[1] = y.x();
+        m.data[2] = z.x();
+        m.data[3] = eye.x();
+        m.data[4] = x.y();
+        m.data[5] = y.y();
+        m.data[6] = z.y();
+        m.data[7] = eye.y();
+        m.data[8] = x.z();
+        m.data[9] = y.z();
+        m.data[10] = z.z();
+        m.data[11] = eye.z();
         return m;
     }
 
@@ -96,19 +99,18 @@ struct Mat4 {
         Mat4 m{};
         for (size_t row = 0; row < 4; ++row)
             for (size_t col = 0; col < 4; ++col)
-                m.data[row + col * 4] = data[col + row * 4];
+                m.data[col + row * 4] = data[row + col * 4];
         return m;
     }
 
     [[nodiscard]] Vec4 operator*(const Vec4 &v) const {
         Vec4 result{};
-        for (size_t i = 0; i < 4; ++i) {
-            result.data[i] =
-                    data[0 + i] * v.x() +
-                    data[4 + i] * v.y() +
-                    data[8 + i] * v.z() +
-                    data[12 + i] * v.w();
-        }
+        for (size_t row = 0; row < 4; ++row)
+            result.data[row] =
+                    data[row * 4 + 0] * v.x() +
+                    data[row * 4 + 1] * v.y() +
+                    data[row * 4 + 2] * v.z() +
+                    data[row * 4 + 3] * v.w();
         return result;
     }
 
@@ -117,7 +119,7 @@ struct Mat4 {
         for (size_t row = 0; row < 4; ++row)
             for (size_t col = 0; col < 4; ++col)
                 for (size_t k = 0; k < 4; ++k)
-                    result.data[col * 4 + row] += data[k * 4 + row] * other.data[col * 4 + k];
+                    result.data[row * 4 + col] += data[row * 4 + k] * other.data[k * 4 + col];
         return result;
     }
 };
