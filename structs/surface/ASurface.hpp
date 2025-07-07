@@ -26,7 +26,7 @@ using namespace std;
 
 struct ASurface {
     unique_ptr<AMaterial> material;
-    vector<unique_ptr<ITransform> > transform;
+    vector<unique_ptr<ITransform> > transforms;
 
     virtual ~ASurface() = default;
 
@@ -45,15 +45,15 @@ struct ASurface {
                 string_view type = t.name();
 
                 if (type == "translate")
-                    transform.push_back(make_unique<Translate>(t));
+                    transforms.push_back(make_unique<Translate>(t));
                 else if (type == "scale")
-                    transform.push_back(make_unique<Scale>(t));
+                    transforms.push_back(make_unique<Scale>(t));
                 else if (type == "rotateX")
-                    transform.push_back(make_unique<RotateX>(t));
+                    transforms.push_back(make_unique<RotateX>(t));
                 else if (type == "rotateY")
-                    transform.push_back(make_unique<RotateY>(t));
+                    transforms.push_back(make_unique<RotateY>(t));
                 else if (type == "rotateZ")
-                    transform.push_back(make_unique<RotateZ>(t));
+                    transforms.push_back(make_unique<RotateZ>(t));
                 else {
                     cerr << "Unknown transform type: " << type << endl;
                     throw invalid_argument{"Unknown transform type."};
