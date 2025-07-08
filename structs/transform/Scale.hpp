@@ -9,7 +9,7 @@ struct Scale : ITransform {
     Vec3 scale;
 
     explicit Scale(const pugi::xml_node &node) :
-            scale{node.child("scale")} {}
+            scale{node} {}
 };
 
 #endif

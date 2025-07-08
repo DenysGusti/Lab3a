@@ -9,7 +9,7 @@ struct RotateZ : ITransform {
     Rotate rotateZ;
 
     explicit RotateZ(const pugi::xml_node &node) :
-            rotateZ{node.child("rotateZ")} {}
+            rotateZ{node} {}
 };
 
 #endif

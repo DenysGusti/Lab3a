@@ -9,7 +9,7 @@ struct Translate : ITransform {
     Vec3 translate;
 
     explicit Translate(const pugi::xml_node &node) :
-            translate{node.child("translate")} {}
+            translate{node} {}
 };
 
 #endif
