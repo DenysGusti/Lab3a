@@ -63,7 +63,7 @@ struct Scene {
 
     [[nodiscard]] vector<uint8_t> raytracing() const {
         const uint64_t imageHeight = camera.resolution.vertical;
-        const uint64_t imageWidth = camera.resolution.vertical;
+        const uint64_t imageWidth = camera.resolution.horizontal;
 
         vector<uint8_t> pixels(CHANNELS * imageWidth * imageHeight);
 
