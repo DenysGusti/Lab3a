@@ -18,7 +18,7 @@ In this lab, I have implemented the following tasks:
 
 ### Development Computer:
 
-- **OS:** Windows 24H2
+- **OS:** Windows 11 24H2
 
 ### Testing Computer:
 
