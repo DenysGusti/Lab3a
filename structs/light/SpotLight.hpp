@@ -12,7 +12,7 @@ struct SpotLight : ALight {
     explicit SpotLight(const pugi::xml_node &node) :
             ALight{node},
             position{node.child("position")},
-            direction{node.child("position")},
+            direction{node.child("direction")},
             falloff{node.child("falloff")} {}
 
     [[nodiscard]] Vec3 getLightVector(const Vec3 &point) const override {
